@@ -77,45 +77,45 @@
     'corp-race': {
       yMax: 50,
       groups: [
-        { label: 'White',        color: 'var(--r-white)',  degree: 36.5, leadership: 33.8 },
-        { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 40.0, leadership: 31.2 },
-        { label: 'Black',        color: 'var(--r-black)',  degree: 42.0, leadership: 30.8, isBW: true },
-        { label: 'Multiracial',  color: 'var(--r-multi)',  degree: 37.0, leadership: 32.5 },
-        { label: 'Other',        color: 'var(--r-other)',  degree: 35.0, leadership: 31.8 },
-        { label: 'Native Amer.', color: 'var(--r-native)', degree: 33.0, leadership: 27.4 }
+        { label: 'White',        color: 'var(--r-white)',  degree: 10.2, leadership: 5.4 },
+        { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 2.1, leadership: 0.6 },
+        { label: 'Black',        color: 'var(--r-black)',  degree: 1.3, leadership: 0.3, isBW: true },
+        { label: 'Multiracial',  color: 'var(--r-multi)',  degree: 0.7, leadership: 0.3 },
+        { label: 'Other',        color: 'var(--r-other)',  degree: 0.2, leadership: 0.1 },
+        { label: 'Native Amer.', color: 'var(--r-native)', degree: 0.1, leadership: 0.0 }
       ]
     },
     'health-race': {
       yMax: 60,
       groups: [
-        { label: 'White',        color: 'var(--r-white)',  degree: 49.0, leadership: 46.2 },
-        { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 53.0, leadership: 43.8 },
-        { label: 'Black',        color: 'var(--r-black)',  degree: 51.0, leadership: 25.5, isBW: true },
-        { label: 'Multiracial',  color: 'var(--r-multi)',  degree: 46.0, leadership: 38.2 },
-        { label: 'Other',        color: 'var(--r-other)',  degree: 44.0, leadership: 36.5 },
-        { label: 'Native Amer.', color: 'var(--r-native)', degree: 41.0, leadership: 29.8 }
+        { label: 'White',        color: 'var(--r-white)',  degree: 5.2, leadership: 3.9 },
+        { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 0.6, leadership: 0.8 },
+        { label: 'Black',        color: 'var(--r-black)',  degree: 0.5, leadership: 0.3, isBW: true },
+        { label: 'Multiracial',  color: 'var(--r-multi)',  degree: 0.3, leadership: 0.2 },
+        { label: 'Other',        color: 'var(--r-other)',  degree: 0.1, leadership: 0.1 },
+        { label: 'Native Amer.', color: 'var(--r-native)', degree: 0.0, leadership: 0.0 }
       ]
     },
     'public-race': {
       yMax: 40,
       groups: [
-        { label: 'White',        color: 'var(--r-white)',  degree: 26.5, leadership: 23.0 },
-        { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 27.0, leadership: 22.1 },
-        { label: 'Black',        color: 'var(--r-black)',  degree: 32.0, leadership: 20.3, isBW: true },
-        { label: 'Multiracial',  color: 'var(--r-multi)',  degree: 25.0, leadership: 21.4 },
-        { label: 'Other',        color: 'var(--r-other)',  degree: 24.5, leadership: 20.8 },
-        { label: 'Native Amer.', color: 'var(--r-native)', degree: 23.0, leadership: 17.2 }
+        { label: 'White',        color: 'var(--r-white)',  degree: 4.8, leadership: 7.2 },
+        { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 0.4, leadership: 0.6 },
+        { label: 'Black',        color: 'var(--r-black)',  degree: 0.7, leadership: 0.8, isBW: true },
+        { label: 'Multiracial',  color: 'var(--r-multi)',  degree: 0.3, leadership: 0.5 },
+        { label: 'Other',        color: 'var(--r-other)',  degree: 0.1, leadership: 0.2 },
+        { label: 'Native Amer.', color: 'var(--r-native)', degree: 0.0, leadership: 0.1 }
       ]
     },
     'academia-race': {
       yMax: 35,
       groups: [
-        { label: 'White',        color: 'var(--r-white)',  degree: 24.0, leadership: 21.8 },
-        { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 23.0, leadership: 19.8 },
-        { label: 'Black',        color: 'var(--r-black)',  degree: 28.5, leadership: 21.6, isBW: true },
-        { label: 'Multiracial',  color: 'var(--r-multi)',  degree: 22.0, leadership: 18.4 },
-        { label: 'Other',        color: 'var(--r-other)',  degree: 21.5, leadership: 18.8 },
-        { label: 'Native Amer.', color: 'var(--r-native)', degree: 20.0, leadership: 15.6 }
+        { label: 'White',        color: 'var(--r-white)',  degree: 13.8, leadership: 2.7 },
+        { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 1.0, leadership: 0.3 },
+        { label: 'Black',        color: 'var(--r-black)',  degree: 1.1, leadership: 0.2, isBW: true },
+        { label: 'Multiracial',  color: 'var(--r-multi)',  degree: 0.6, leadership: 0.2 },
+        { label: 'Other',        color: 'var(--r-other)',  degree: 0.2, leadership: 0.1 },
+        { label: 'Native Amer.', color: 'var(--r-native)', degree: 0.1, leadership: 0.0 }
       ]
     }
   };
