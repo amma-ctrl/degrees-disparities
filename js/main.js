@@ -18,9 +18,6 @@
 (function () {
   'use strict';
 
-  // ---------------------------------------------------------
-  // Boot — wait for DOM ready, then initialize
-  // ---------------------------------------------------------
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
@@ -28,13 +25,10 @@
   }
 
   function init() {
-    // Build the static chart DOM up front
     window.Charts.buildDiverge();
     window.Charts.buildGCCharts();
 
-    // Guard against environments without IntersectionObserver (very old browsers,
-    // some test runners). Without it we simply reveal everything immediately
-    // instead of fading on scroll — the page stays functional.
+
     if (typeof IntersectionObserver === 'undefined') {
       revealAllImmediately();
     } else {
@@ -46,11 +40,7 @@
     setupScrollListeners();
   }
 
-  /**
-   * Fallback path when IntersectionObserver isn't available.
-   * Marks every scene visible and triggers all animations immediately
-   * so the visualizations still appear.
-   */
+
   function revealAllImmediately() {
     const C = window.Charts;
     document.querySelectorAll('.scene').forEach(s => s.classList.add('visible'));
@@ -68,10 +58,6 @@
     if (bigOR) bigOR.style.opacity = '1';
   }
 
-  // ---------------------------------------------------------
-  // Scene fade-in observer
-  // Adds .visible to each .scene when it enters the viewport.
-  // ---------------------------------------------------------
   function setupSceneFadeIn() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -88,10 +74,7 @@
     document.querySelectorAll('.scene').forEach(s => observer.observe(s));
   }
 
-  // ---------------------------------------------------------
-  // onceVisible — fire `callback` the first time `selector`
-  // crosses the threshold, then stop observing.
-  // ---------------------------------------------------------
+
   function onceVisible(selector, callback, threshold) {
     const el = typeof selector === 'string'
       ? document.querySelector(selector)
