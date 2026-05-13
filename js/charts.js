@@ -25,11 +25,6 @@
      DIVERGING BAR CHART — leadership gap by group
      ====================================================== */
 
-  /**
-   * Build DOM nodes for the diverging chart at #divergeChart.
-   * Creates gridlines, a zero-axis line, and a column per data point.
-   * Each column holds a hidden bar (height 0) ready to animate.
-   */
   function buildDiverge() {
     const root = document.getElementById('divergeChart');
     if (!root) return;
@@ -91,10 +86,7 @@
     });
   }
 
-  /**
-   * Animate each diverging chart column in sequence by growing its bar
-   * from 0 to its target height and fading in its value label.
-   */
+
   function animateDiverge() {
     document.querySelectorAll('#divergeChart .diverge-col').forEach((col, i) => {
       setTimeout(() => {
@@ -115,11 +107,6 @@
      by sex or race depending on the chart's data key.
      ====================================================== */
 
-  /**
-   * Build DOM nodes for every .gc-chart on the page, sourcing data
-   * from interData by the chart's data-group attribute. Also populates
-   * the matching labels row and legend elements.
-   */
   function buildGCCharts() {
     document.querySelectorAll('.gc-chart').forEach(chart => {
       const key = chart.dataset.group;
@@ -269,12 +256,7 @@
      Women) plus a dashed bracket that highlights the gap.
      ====================================================== */
 
-  /**
-   * Animate the industry tab's horizontal bars and the gap-bracket
-   * overlay that visually highlights the percentage-point gap.
-   *
-   * @param {Element|Document} scope - Container to look inside (defaults to document)
-   */
+ 
   function animateIndHbars(scope) {
     const root = scope || document;
 
@@ -327,11 +309,6 @@
      Row-by-row reveal + dot positioning on a log-scaled OR axis.
      ====================================================== */
 
-  /**
-   * Reveal each row of #regTable in sequence and position each OR
-   * dot on a log-scaled axis. Dots below 1.0 turn red (reduced odds),
-   * above 1.0 turn teal (increased odds), near 1.0 stay neutral.
-   */
   function animateRegTable() {
     const rows = document.querySelectorAll('#regTable tbody tr');
     rows.forEach((row, i) => {
@@ -355,11 +332,7 @@
      fades/desaturates the rejected one.
      ====================================================== */
 
-  /**
-   * Animate the conclusion section's hypothesis cards.
-   * Adds .accepting to H1 and .rejecting to H0, plus
-   * reveals the verdict badges.
-   */
+
   function animateConclusion() {
     setTimeout(() => {
       const h0 = document.getElementById('conc-h0');
@@ -379,10 +352,6 @@
      next section, creating a clean transition.
      ====================================================== */
 
-  /**
-   * Toggle .dissolved on the hero content based on scroll position.
-   * Called on every scroll/resize event from main.js.
-   */
   function handleHeroDissolve() {
     const content = document.getElementById('heroContent');
     const hero = document.getElementById('s-hero');
