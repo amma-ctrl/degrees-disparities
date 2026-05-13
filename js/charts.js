@@ -135,7 +135,11 @@
         line.style.bottom = `${(i / steps) * 100}%`;
         const lbl = document.createElement('span');
         lbl.className = 'gc-grid-label';
-        lbl.textContent = gv + '%';
+        // Format labels tidily: integers stay integer, otherwise one decimal place
+        const labelText = Number.isInteger(gv)
+          ? gv + '%'
+          : parseFloat(gv.toFixed(2)) + '%';
+        lbl.textContent = labelText;
         line.appendChild(lbl);
         chart.appendChild(line);
       }

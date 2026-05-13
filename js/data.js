@@ -45,28 +45,28 @@
   const interData = {
     /* ----- GENDER comparisons (Black men vs. Black women) ----- */
     'corp-gender': {
-      yMax: 50,
+      yMax: 1.5,
       groups: [
         { label: 'Black Men',   color: 'var(--g-male)',   degree: 1.0, leadership: 0.4 },
         { label: 'Black Women', color: 'var(--g-female)', degree: 1.3, leadership: 0.3, isBW: true }
       ]
     },
     'health-gender': {
-      yMax: 60,
+      yMax: 0.6,
       groups: [
         { label: 'Black Men',   color: 'var(--g-male)',   degree: 0.1, leadership: 0.2 },
         { label: 'Black Women', color: 'var(--g-female)', degree: 0.5, leadership: 0.3, isBW: true }
       ]
     },
     'public-gender': {
-      yMax: 40,
+      yMax: 1.0,
       groups: [
         { label: 'Black Men',   color: 'var(--g-male)',   degree: 0.4, leadership: 0.5 },
         { label: 'Black Women', color: 'var(--g-female)', degree: 0.7, leadership: 0.8, isBW: true }
       ]
     },
     'academia-gender': {
-      yMax: 35,
+      yMax: 1.4,
       groups: [
         { label: 'Black Men',   color: 'var(--g-male)',   degree: 0.4, leadership: 0.1 },
         { label: 'Black Women', color: 'var(--g-female)', degree: 1.1, leadership: 0.2, isBW: true }
@@ -75,7 +75,7 @@
 
     /* ----- RACE comparisons (6 racial groups among women) ----- */
     'corp-race': {
-      yMax: 50,
+      yMax: 12,
       groups: [
         { label: 'White',        color: 'var(--r-white)',  degree: 10.2, leadership: 5.4 },
         { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 2.1, leadership: 0.6 },
@@ -86,7 +86,7 @@
       ]
     },
     'health-race': {
-      yMax: 60,
+      yMax: 6,
       groups: [
         { label: 'White',        color: 'var(--r-white)',  degree: 5.2, leadership: 3.9 },
         { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 0.6, leadership: 0.8 },
@@ -97,7 +97,7 @@
       ]
     },
     'public-race': {
-      yMax: 40,
+      yMax: 8,
       groups: [
         { label: 'White',        color: 'var(--r-white)',  degree: 4.8, leadership: 7.2 },
         { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 0.4, leadership: 0.6 },
@@ -108,7 +108,7 @@
       ]
     },
     'academia-race': {
-      yMax: 35,
+      yMax: 15,
       groups: [
         { label: 'White',        color: 'var(--r-white)',  degree: 13.8, leadership: 2.7 },
         { label: 'Asian/Pac.',   color: 'var(--r-asian)',  degree: 1.0, leadership: 0.3 },
