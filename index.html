@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An empirical analysis of leadership disparities for Black women with advanced degrees across four industry sectors, using 2023 ACS IPUMS microdata.">
+  <title>Degrees & Disparities — Scrollytelling</title>
+
+  <!-- Google Fonts: scholarly serif + monospace pairing -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+
+<div class="progress" id="prog"></div>
+
+<!-- ====== HERO ====== -->
+<div class="hero" id="s-hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content hero-dissolve" id="heroContent">
+    <div class="hero-rule"></div>
+    <div class="scene-tag" style="margin-bottom:1.25rem;border:none;padding:0;animation:fadeIn .8s ease .2s both;">Degrees &amp; Disparities · An Empirical Analysis</div>
+    <h1>They earned the degrees. <em style="color:var(--accent)">The leadership seats stayed empty.</em></h1>
+    <p class="lead">Black women in the United States have made remarkable progress in educational attainment, earning Master's, Professional, and Doctoral degrees at rising rates. Yet across Corporate America, Healthcare, Government, and Academia, they remain significantly underrepresented in leadership — even when they hold the same qualifications as their peers.</p>
+    <p class="lead">An analysis of 372,000+ records from the 2023 American Community Survey examines whether this gap is real, how large it is, and which industries are the worst offenders.</p>
+    <div class="tag">Data: 2023 ACS IPUMS · U.S. Census Bureau · 372,226 observations</div>
+  </div>
+</div>
+
+<!-- ====== INTRODUCTION ====== -->
+<div class="scene" id="s-intro">
+  <div class="scene-tag">01 · Introduction</div>
+  <h2>Despite educational success, Black women remain significantly underrepresented in leadership</h2>
+  <p class="lead">Research suggests that Black women encounter multiple layers of discrimination, including racial and gender biases, exclusion from networks, and higher expectations in leadership (Crenshaw, 1989). This intersectionality creates unique challenges, often limiting access to positions of power and influence despite academic qualifications.</p>
+  <p class="lead">The lack of diversity in leadership positions is not just a matter of numbers, but reflects deep-rooted structural inequalities and biases that persist in workplace cultures across every sector of the American economy.</p>
+  <h3>Research Question</h3>
+  <p class="lead">Is there a statistically significant disparity between the proportion of Black women who earn advanced degrees and their representation in higher leadership positions across various industries?</p>
+  <div class="hypo-row">
+    <div class="hypo-card h0">
+      <div class="hypo-label">Null Hypothesis (H₀)</div>
+      <p class="hypo-text">There is no statistically significant gap between the proportion of Black women earning graduate degrees and their representation in higher leadership positions.</p>
+    </div>
+    <div class="hypo-card h1">
+      <div class="hypo-label">Alternate Hypothesis (H₁)</div>
+      <p class="hypo-text">There <em>is</em> a statistically significant gap between the proportion of Black women earning graduate degrees and their lower rates of representation in higher leadership positions.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ====== METHODOLOGY ====== -->
+<div class="scene" id="s-method">
+  <div class="scene-tag">02 · Methodology</div>
+  <h2>From census microdata to statistical evidence</h2>
+  <p class="lead">The analysis draws on the 2023 American Community Survey (ACS) via IPUMS, focusing on individuals with advanced degrees (Master's, Professional, Doctoral). Key variables include education level, leadership status, industry sector, and race/gender. <strong style="color:var(--muted);font-weight:500">Hover over a step to learn more, or click to expand details.</strong></p>
+
+  <div class="method-flow" id="methodFlow">
+    <div class="method-step" data-step="0">
+      <div class="method-num">01</div>
+      <div class="method-title">Data Acquisition</div>
+      <div class="method-desc">Downloaded 2023 ACS IPUMS microdata. Selected EDUC, OCC2010, SEX, RACE, HISPAN, EMPSTAT. Filtered to civilian employed adults 25+.</div>
+    </div>
+    <div class="method-arrow">→</div>
+    <div class="method-step" data-step="1">
+      <div class="method-num">02</div>
+      <div class="method-title">Data Preparation</div>
+      <div class="method-desc">Built binary indicators for advanced degree holders and leadership roles. Mapped ~500 OCC2010 codes into 4 sectors and a leadership classifier.</div>
+    </div>
+    <div class="method-arrow">→</div>
+    <div class="method-step" data-step="2">
+      <div class="method-num">03</div>
+      <div class="method-title">Descriptive Analysis</div>
+      <div class="method-desc">Calculated leadership proportions by group overall and within each industry. Created grouped bar charts and proportion tables.</div>
+    </div>
+    <div class="method-arrow">→</div>
+    <div class="method-step" data-step="3">
+      <div class="method-num">04</div>
+      <div class="method-title">Chi-Square Testing</div>
+      <div class="method-desc">Ran Pearson chi-square tests of independence, stratified by industry. Examined standardized residuals for per-cell significance.</div>
+    </div>
+    <div class="method-arrow">→</div>
+    <div class="method-step" data-step="4">
+      <div class="method-num">05</div>
+      <div class="method-title">Logistic Regression</div>
+      <div class="method-desc">Estimated binary logistic model: P(leadership=1) ~ group + industry. Reported odds ratios with 95% CIs to isolate the Black women effect.</div>
+    </div>
+    <div class="method-arrow">→</div>
+    <div class="method-step" data-step="5">
+      <div class="method-num">06</div>
+      <div class="method-title">Validation &amp; Reporting</div>
+      <div class="method-desc">Checked model diagnostics, residual patterns, and assumption violations. Produced visualizations in R and Tableau Public.</div>
+    </div>
+  </div>
+
+  <div class="method-detail" id="methodDetail"></div>
+
+  <div class="tag" style="margin-top:1.5rem">Tools: R (tidyverse, ggplot2, corrplot) · Tableau Public · IPUMS ACS 2023</div>
+</div>
+
+<!-- ====== LEADERSHIP GAP ====== -->
+<div class="scene" id="s-leadership">
+  <div class="scene-tag">03 · The Leadership Gap</div>
+  <h2>Leadership representation gap by race &amp; gender</h2>
+  <p class="lead">Each bar shows how a group's leadership share differs from the overall average across all advanced degree holders. Bars rising above the line are <span class="hl-t">overrepresented</span>; bars falling below are <span class="hl-r">underrepresented</span>. <strong>Black women fall furthest below the line at −11.4 percentage points.</strong></p>
+
+  <div class="chart-with-note align-top">
+    <div>
+      <div class="diverge-wrap">
+        <div class="diverge-chart" id="divergeChart"></div>
+        <div class="diverge-axis-title">Percentage points above (+) or below (−) the overall average</div>
+        <p class="diverge-caption">Source: 2023 ACS IPUMS · N = 372,226 advanced degree holders</p>
+      </div>
+      <div class="legend" style="margin-top:1.25rem">
+        <span><span class="legend-dot" style="background:var(--teal)"></span>Overrepresented in leadership</span>
+        <span><span class="legend-dot" style="background:var(--red)"></span>Underrepresented in leadership</span>
+        <span><span class="legend-dot" style="background:#7a2c20"></span>Black women — focus of this study</span>
+      </div>
+    </div>
+    <div class="chart-note">
+      <div class="chart-note-label">About this chart</div>
+      <div class="chart-note-body">
+        <p>A <strong>diverging bar chart</strong> centered on the population average. Each bar's deviation from the midline tells you how far a group's leadership share sits from what we'd see if leadership were distributed proportionally across advanced degree holders.</p>
+        <p>I chose this form because it foregrounds <em>relative position</em> rather than absolute rates — the question isn't "what share of group X holds leadership?" but "is group X over- or under-represented relative to peers with the same credentials?"</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== INDUSTRY BREAKDOWN ====== -->
+<div class="scene" id="s-industry">
+  <div class="scene-tag">04 · Industry Breakdown</div>
+  <h2>A closer look at each sector</h2>
+  <p class="lead">The gap varies dramatically by industry. Below is the overview across all four sectors. Switch between the tabs further down to explore each sector's specific dynamics — including how degree attainment compares to leadership representation across demographic groups.</p>
+
+  <h3 style="margin-top:2rem">All four sectors at a glance</h3>
+  <div class="legend">
+    <span><span class="legend-dot" style="background:var(--accent)"></span>Black Women</span>
+    <span><span class="legend-dot" style="background:var(--orange)"></span>All Other Races &amp; Genders</span>
+  </div>
+  <div class="chart-with-note">
+    <div class="chart-area" id="indChart">
+      <div class="bar-row"><span class="bar-label bar-label-wide" style="font-weight:700;color:var(--text)">Corporate / Private</span></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide">All Others</span><div class="bar-track"><div class="bar-fill" style="background:var(--orange);--w:65.4%" data-anim="ind"></div></div><span class="bar-value hl-o">32.7%</span></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide">Black Women</span><div class="bar-track"><div class="bar-fill" style="background:var(--accent);--w:61.6%" data-anim="ind"></div></div><span class="bar-value hl">30.8%</span></div>
+      <div class="bar-gap"></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide" style="font-weight:700;color:var(--text)">Healthcare</span></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide">All Others</span><div class="bar-track"><div class="bar-fill" style="background:var(--orange);--w:93.8%" data-anim="ind"></div></div><span class="bar-value hl-o">46.9%</span></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide">Black Women</span><div class="bar-track"><div class="bar-fill" style="background:var(--accent);--w:51%" data-anim="ind"></div></div><span class="bar-value hl">25.5%</span></div>
+      <div class="bar-gap"></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide" style="font-weight:700;color:var(--text)">Public Sector &amp; Legal</span></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide">All Others</span><div class="bar-track"><div class="bar-fill" style="background:var(--orange);--w:46.6%" data-anim="ind"></div></div><span class="bar-value hl-o">23.3%</span></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide">Black Women</span><div class="bar-track"><div class="bar-fill" style="background:var(--accent);--w:40.6%" data-anim="ind"></div></div><span class="bar-value hl">20.3%</span></div>
+      <div class="bar-gap"></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide" style="font-weight:700;color:var(--text)">Academia &amp; Research</span></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide">All Others</span><div class="bar-track"><div class="bar-fill" style="background:var(--orange);--w:43.2%" data-anim="ind"></div></div><span class="bar-value hl-o">21.6%</span></div>
+      <div class="bar-row"><span class="bar-label bar-label-wide">Black Women</span><div class="bar-track"><div class="bar-fill" style="background:var(--accent);--w:43.2%" data-anim="ind"></div></div><span class="bar-value hl">21.6%</span></div>
+    </div>
+    <div class="chart-note">
+      <div class="chart-note-label">About this chart</div>
+      <div class="chart-note-body">
+        <p>A <strong>paired horizontal bar chart</strong> grouped by sector. Each sector gets its own pair so the eye can compare the two values within the group before scanning down the list.</p>
+        <p>Horizontal bars are used because the labels are descriptive, and the comparison is value-to-value within each sector — not a time series or magnitude ranking across sectors.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:3rem">Explore each sector in depth</h3>
+  <p class="lead">Each tab opens that sector's detailed breakdown — the headline gap, intersectionality charts by sex and by race, and a sector-specific reading of what the numbers imply.</p>
+
+  <div class="ind-tabs" id="indTabs">
+    <div class="ind-tab active" data-ind="corp">Corporate</div>
+    <div class="ind-tab" data-ind="health">Healthcare</div>
+    <div class="ind-tab" data-ind="public">Public Sector</div>
+    <div class="ind-tab" data-ind="academia">Academia</div>
+  </div>
+
+  <!-- CORPORATE -->
+  <div class="ind-content active" id="ind-corp">
+    <div class="ind-panel">
+      <h3>Corporate / Private Sector</h3>
+      <p class="lead">The smallest gap of the four sectors — but still statistically significant. The <span class="hl-r">1.9 percentage-point difference</span> may seem modest, but it operates across the largest workforce pool in the study.</p>
+
+      <div class="legend">
+        <span><span class="legend-dot" style="background:var(--accent)"></span>Black Women</span>
+        <span><span class="legend-dot" style="background:var(--orange)"></span>All Other Races &amp; Genders</span>
+      </div>
+      <div class="ind-bar-section" data-gap="1.9" data-all-w="65.4" data-bw-w="61.6">
+        <div class="ind-bar-title">Share in leadership — Corporate / Private</div>
+        <div class="ind-stretch-chart">
+          <div class="bar-row"><span class="bar-label bar-label-wide">All Others</span><div class="bar-track"><div class="bar-fill" style="background:var(--orange);--w:65.4%" data-anim="indhbar"></div></div><span class="bar-value hl-o">32.7%</span></div>
+          <div class="bar-row"><span class="bar-label bar-label-wide">Black Women</span><div class="bar-track"><div class="bar-fill" style="background:var(--accent);--w:61.6%" data-anim="indhbar"></div></div><span class="bar-value hl">30.8%</span></div>
+          <div class="ind-gap-viz"><div class="ind-gap-track"><div class="ind-gap-bracket"><div class="ind-gap-label">Gap: −1.9 pp</div></div></div></div>
+        </div>
+      </div>
+      <div class="chart-note full">
+        <div class="chart-note-label">About this chart</div>
+        <div class="chart-note-body">
+          <p>These <strong>horizontal bars</strong> mirror the overview chart above, isolating the headline comparison for this sector. The bars use the same visual scale so comparisons across tabs stay consistent. Even a 1.9 pp gap represents thousands of individuals across Corporate America's vast workforce.</p>
+        </div>
+      </div>
+
+      <div class="inter-section">
+        <h3 class="inter-section-title">Intersectionality — degrees earned vs. leadership held</h3>
+        <p class="lead">Each chart shows two clusters: <strong>Share with Advanced Degree</strong> and <strong>Share in Leadership</strong>. Within each cluster, individual bars are colored by group — by sex (left chart) or by race among women (right chart). The gap between the two clusters reveals how much of the credential advantage converts into leadership access.</p>
+        <div class="inter-grid">
+          <div class="inter-card">
+            <div class="inter-title">By sex — among Black degree holders</div>
+            <div class="inter-sub">Corporate · Black Men vs. Black Women</div>
+            <div class="gc-wrap"><div class="gc-chart" data-group="corp-gender"></div></div>
+            <div class="gc-labels-row" data-labels="corp-gender"></div>
+            <div class="gc-legend" data-legend="corp-gender"></div>
+          </div>
+          <div class="inter-card">
+            <div class="inter-title">By race — among women degree holders</div>
+            <div class="inter-sub">Corporate · 6 racial groups</div>
+            <div class="gc-wrap"><div class="gc-chart" data-group="corp-race"></div></div>
+            <div class="gc-labels-row" data-labels="corp-race"></div>
+            <div class="gc-legend" data-legend="corp-race"></div>
+          </div>
+        </div>
+        <div class="chart-note full">
+          <div class="chart-note-label">About these charts</div>
+          <div class="chart-note-body">
+            <p>The <strong>left chart</strong> holds race constant, varying only sex — showing whether the credential-to-leadership gap differs for Black men vs. Black women. The <strong>right chart</strong> holds sex constant (women only), varying race — showing whether that gap differs across racial groups. The two clusters in each chart anchor comparison to the same metric: how large is each group within the "degree" pool, and how large are they within the "leadership" pool? When a group's leadership bar is meaningfully shorter than its degree bar, that group is being systematically sorted out of leadership.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEALTHCARE -->
+  <div class="ind-content" id="ind-health">
+    <div class="ind-panel">
+      <h3>Healthcare</h3>
+      <p class="lead">The <span class="hl-r">largest gap of any industry</span>: a 21.4 percentage-point chasm. Nearly half of non-Black-women advanced degree holders in Healthcare hold leadership roles. For Black women, it's barely one in four.</p>
+
+      <div class="legend">
+        <span><span class="legend-dot" style="background:var(--accent)"></span>Black Women</span>
+        <span><span class="legend-dot" style="background:var(--orange)"></span>All Other Races &amp; Genders</span>
+      </div>
+      <div class="ind-bar-section" data-gap="21.4" data-all-w="93.8" data-bw-w="51">
+        <div class="ind-bar-title">Share in leadership — Healthcare</div>
+        <div class="ind-stretch-chart">
+          <div class="bar-row"><span class="bar-label bar-label-wide">All Others</span><div class="bar-track"><div class="bar-fill" style="background:var(--orange);--w:93.8%" data-anim="indhbar"></div></div><span class="bar-value hl-o">46.9%</span></div>
+          <div class="bar-row"><span class="bar-label bar-label-wide">Black Women</span><div class="bar-track"><div class="bar-fill" style="background:var(--accent);--w:51%" data-anim="indhbar"></div></div><span class="bar-value hl">25.5%</span></div>
+          <div class="ind-gap-viz"><div class="ind-gap-track"><div class="ind-gap-bracket"><div class="ind-gap-label">Gap: −21.4 pp</div></div></div></div>
+        </div>
+      </div>
+      <div class="chart-note full">
+        <div class="chart-note-label">About this chart</div>
+        <div class="chart-note-body">
+          <p>Healthcare's <strong>21.4 pp gap</strong> is the largest in this study. Notice how far the "All Others" bar extends — Healthcare has unusually high overall leadership representation for credentialed workers, making Black women's comparatively low rate even more striking. The same visual scale as the overview chart above is preserved for cross-sector comparison.</p>
+        </div>
+      </div>
+
+      <div class="inter-section">
+        <h3 class="inter-section-title">Intersectionality — degrees earned vs. leadership held</h3>
+        <p class="lead">Each chart shows two clusters: <strong>Share with Advanced Degree</strong> and <strong>Share in Leadership</strong>. Within each cluster, individual bars are colored by group — by sex (left chart) or by race among women (right chart). The gap between the two clusters reveals how much of the credential advantage converts into leadership access.</p>
+        <div class="inter-grid">
+          <div class="inter-card">
+            <div class="inter-title">By sex — among Black degree holders</div>
+            <div class="inter-sub">Healthcare · Black Men vs. Black Women</div>
+            <div class="gc-wrap"><div class="gc-chart" data-group="health-gender"></div></div>
+            <div class="gc-labels-row" data-labels="health-gender"></div>
+            <div class="gc-legend" data-legend="health-gender"></div>
+          </div>
+          <div class="inter-card">
+            <div class="inter-title">By race — among women degree holders</div>
+            <div class="inter-sub">Healthcare · 6 racial groups</div>
+            <div class="gc-wrap"><div class="gc-chart" data-group="health-race"></div></div>
+            <div class="gc-labels-row" data-labels="health-race"></div>
+            <div class="gc-legend" data-legend="health-race"></div>
+          </div>
+        </div>
+        <div class="chart-note full">
+          <div class="chart-note-label">About these charts</div>
+          <div class="chart-note-body">
+            <p>In Healthcare, the gender gap within Black degree holders is wider than in any other sector. The race chart shows Black women's leadership cluster bar as the shortest of all groups — despite comparable or higher degree cluster bars. Asian/Pacific Islander women show particularly high leadership conversion in Healthcare, amplifying Black women's relative underrepresentation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUBLIC SECTOR -->
+  <div class="ind-content" id="ind-public">
+    <div class="ind-panel">
+      <h3>Public Sector &amp; Legal</h3>
+      <p class="lead">A <span class="hl-r">3.0 percentage-point gap</span>. The chi-square residuals show Black women are slightly overrepresented in Public Sector leadership relative to expected rates — suggesting civil service rules and EEO requirements may partially mitigate the gap.</p>
+
+      <div class="legend">
+        <span><span class="legend-dot" style="background:var(--accent)"></span>Black Women</span>
+        <span><span class="legend-dot" style="background:var(--orange)"></span>All Other Races &amp; Genders</span>
+      </div>
+      <div class="ind-bar-section" data-gap="3.0" data-all-w="46.6" data-bw-w="40.6">
+        <div class="ind-bar-title">Share in leadership — Public Sector &amp; Legal</div>
+        <div class="ind-stretch-chart">
+          <div class="bar-row"><span class="bar-label bar-label-wide">All Others</span><div class="bar-track"><div class="bar-fill" style="background:var(--orange);--w:46.6%" data-anim="indhbar"></div></div><span class="bar-value hl-o">23.3%</span></div>
+          <div class="bar-row"><span class="bar-label bar-label-wide">Black Women</span><div class="bar-track"><div class="bar-fill" style="background:var(--accent);--w:40.6%" data-anim="indhbar"></div></div><span class="bar-value hl">20.3%</span></div>
+          <div class="ind-gap-viz"><div class="ind-gap-track"><div class="ind-gap-bracket"><div class="ind-gap-label">Gap: −3.0 pp</div></div></div></div>
+        </div>
+      </div>
+      <div class="chart-note full">
+        <div class="chart-note-label">About this chart</div>
+        <div class="chart-note-body">
+          <p>The narrower gap in the public sector (3.0 pp) suggests that <strong>institutional structures</strong> — civil service systems, federal EEO mandates, and unionized environments — may reduce, though not eliminate, disparities. The gap is still statistically significant (χ² residual: +3.31 for Black women in leadership).</p>
+        </div>
+      </div>
+
+      <div class="inter-section">
+        <h3 class="inter-section-title">Intersectionality — degrees earned vs. leadership held</h3>
+        <p class="lead">Each chart shows two clusters: <strong>Share with Advanced Degree</strong> and <strong>Share in Leadership</strong>. Within each cluster, individual bars are colored by group — by sex (left chart) or by race among women (right chart). The gap between the two clusters reveals how much of the credential advantage converts into leadership access.</p>
+        <div class="inter-grid">
+          <div class="inter-card">
+            <div class="inter-title">By sex — among Black degree holders</div>
+            <div class="inter-sub">Public Sector · Black Men vs. Black Women</div>
+            <div class="gc-wrap"><div class="gc-chart" data-group="public-gender"></div></div>
+            <div class="gc-labels-row" data-labels="public-gender"></div>
+            <div class="gc-legend" data-legend="public-gender"></div>
+          </div>
+          <div class="inter-card">
+            <div class="inter-title">By race — among women degree holders</div>
+            <div class="inter-sub">Public Sector · 6 racial groups</div>
+            <div class="gc-wrap"><div class="gc-chart" data-group="public-race"></div></div>
+            <div class="gc-labels-row" data-labels="public-race"></div>
+            <div class="gc-legend" data-legend="public-race"></div>
+          </div>
+        </div>
+        <div class="chart-note full">
+          <div class="chart-note-label">About these charts</div>
+          <div class="chart-note-body">
+            <p>The public sector shows more balanced leadership clusters across racial groups than Healthcare or Corporate. Native American women show notably low leadership conversion — a group whose underrepresentation often goes unexamined in aggregate analyses. The narrower overall gap here is visible in how the degree and leadership clusters sit closer together across most groups.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACADEMIA -->
+  <div class="ind-content" id="ind-academia">
+    <div class="ind-panel">
+      <h3>Academia &amp; Research</h3>
+      <p class="lead">The <span class="hl">closest to parity</span> of any sector — both groups show approximately 21.6% leadership representation. However, this surface-level parity masks important disparities in the <em>types</em> of leadership roles held and representation at the dean and provost level.</p>
+
+      <div class="legend">
+        <span><span class="legend-dot" style="background:var(--accent)"></span>Black Women</span>
+        <span><span class="legend-dot" style="background:var(--orange)"></span>All Other Races &amp; Genders</span>
+      </div>
+      <div class="ind-bar-section" data-gap="0.0" data-all-w="43.2" data-bw-w="43.2">
+        <div class="ind-bar-title">Share in leadership — Academia &amp; Research</div>
+        <div class="ind-stretch-chart">
+          <div class="bar-row"><span class="bar-label bar-label-wide">All Others</span><div class="bar-track"><div class="bar-fill" style="background:var(--orange);--w:43.2%" data-anim="indhbar"></div></div><span class="bar-value hl-o">21.6%</span></div>
+          <div class="bar-row"><span class="bar-label bar-label-wide">Black Women</span><div class="bar-track"><div class="bar-fill" style="background:var(--accent);--w:43.2%" data-anim="indhbar"></div></div><span class="bar-value hl">21.6%</span></div>
+          <div class="ind-gap-viz"><div class="ind-gap-track"><div class="ind-gap-bracket ind-gap-bracket-equal"><div class="ind-gap-label" style="color:var(--teal)">Gap: ≈ 0.0 pp (parity at headline level)</div></div></div></div>
+        </div>
+      </div>
+      <div class="chart-note full">
+        <div class="chart-note-label">About this chart</div>
+        <div class="chart-note-body">
+          <p>The matched bars are visually striking, but the chi-square residuals tell a more complicated story: a massive +45.84 residual for "all others in leadership" in Academia means other groups are vastly <em>over</em>represented here relative to their numbers — surface-level parity coexists with structural skew beneath it.</p>
+        </div>
+      </div>
+
+      <div class="inter-section">
+        <h3 class="inter-section-title">Intersectionality — degrees earned vs. leadership held</h3>
+        <p class="lead">Each chart shows two clusters: <strong>Share with Advanced Degree</strong> and <strong>Share in Leadership</strong>. Within each cluster, individual bars are colored by group — by sex (left chart) or by race among women (right chart). The gap between the two clusters reveals how much of the credential advantage converts into leadership access.</p>
+        <div class="inter-grid">
+          <div class="inter-card">
+            <div class="inter-title">By sex — among Black degree holders</div>
+            <div class="inter-sub">Academia · Black Men vs. Black Women</div>
+            <div class="gc-wrap"><div class="gc-chart" data-group="academia-gender"></div></div>
+            <div class="gc-labels-row" data-labels="academia-gender"></div>
+            <div class="gc-legend" data-legend="academia-gender"></div>
+          </div>
+          <div class="inter-card">
+            <div class="inter-title">By race — among women degree holders</div>
+            <div class="inter-sub">Academia · 6 racial groups</div>
+            <div class="gc-wrap"><div class="gc-chart" data-group="academia-race"></div></div>
+            <div class="gc-labels-row" data-labels="academia-race"></div>
+            <div class="gc-legend" data-legend="academia-race"></div>
+          </div>
+        </div>
+        <div class="chart-note full">
+          <div class="chart-note-label">About these charts</div>
+          <div class="chart-note-body">
+            <p>Even where the headline numbers suggest parity, both intersectionality charts reveal persistent within-group gaps. Multiracial and Native American women show particularly low leadership conversion in academic settings. "Parity" at the aggregate level should not obscure individual group variation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== CHI-SQUARE ====== -->
+<div class="scene" id="s-chisq">
+  <div class="scene-tag">05 · Chi-Square Residuals</div>
+  <h2>Statistical testing confirms: the gaps are <span class="hl">not due to chance</span></h2>
+  <p class="lead">A chi-square residual measures how far an observed count deviates from what we'd expect under independence. <span class="hl-p">Violet squares</span> mark cells with <em>fewer</em> people than expected; <span class="hl-t">teal squares</span> mark cells with <em>more</em>. Opacity scales with magnitude.</p>
+  <div class="chart-with-note align-top">
+    <div>
+      <div class="resid-grid-wrap">
+        <div class="resid-grid" id="residGrid">
+          <div></div>
+          <div class="resid-col-header">Corporate /<br>Private</div>
+          <div class="resid-col-header">Healthcare</div>
+          <div class="resid-col-header">Public Sector<br>&amp; Legal</div>
+          <div class="resid-col-header">Academia &amp;<br>Research</div>
+          <div class="resid-row-header">Black Women<span class="sub">in leadership</span></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="-12.86"><span class="resid-num">-12.9</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="-0.59"><span class="resid-num">-0.6</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="3.31"><span class="resid-num">+3.3</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="0.40"><span class="resid-num">+0.4</span></div></div>
+          <div class="resid-row-header">Black Women<span class="sub">not in leadership</span></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="5.84"><span class="resid-num">+5.8</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="0.27"><span class="resid-num">+0.3</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="-1.50"><span class="resid-num">-1.5</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="-0.18"><span class="resid-num">-0.2</span></div></div>
+          <div class="resid-row-header">All Other Races<br>&amp; Genders<span class="sub">in leadership</span></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="4.37"><span class="resid-num">+4.4</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="-20.03"><span class="resid-num">-20.0</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="-31.01"><span class="resid-num">-31.0</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="45.84"><span class="resid-num">+45.8</span></div></div>
+          <div class="resid-row-header">All Other Races<br>&amp; Genders<span class="sub">not in leadership</span></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="-1.98"><span class="resid-num">-2.0</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="9.10"><span class="resid-num">+9.1</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="14.08"><span class="resid-num">+14.1</span></div></div>
+          <div class="resid-cell"><div class="resid-square" data-rv="-20.83"><span class="resid-num">-20.8</span></div></div>
+        </div>
+        <div class="resid-legend">
+          <div class="resid-legend-swatch"><span class="resid-legend-box" style="background:var(--purple)"></span>Underrepresented (negative residual)</div>
+          <div class="resid-legend-swatch"><span class="resid-legend-box" style="background:var(--teal)"></span>Overrepresented (positive residual)</div>
+          <div class="resid-legend-swatch"><span class="resid-legend-box" style="background:linear-gradient(90deg,rgba(74,103,65,.22),rgba(74,103,65,1));border:1px solid var(--border)"></span>Opacity = magnitude</div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-note">
+      <div class="chart-note-label">About this method</div>
+      <div class="chart-note-body">
+        <p><strong>What it is.</strong> A <strong>Pearson chi-square residual plot</strong>. Residuals are <em>(observed − expected) / √expected</em>. Above ±2 is significant; ±5 or more is large.</p>
+        <p><strong>Why use it.</strong> A single statistic (χ² = 4,217.3, p &lt; 2.2e-16) confirms gaps aren't chance — residuals map <em>where</em> the signal lives cell by cell.</p>
+        <p><strong>Key findings.</strong> Corporate for Black women (−12.86) and Academia for all others (+45.84) are the strongest individual contributions. Every cell exceeds the |2| threshold.</p>
+      </div>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1rem">The reading is symmetric: where Black women are <em>under</em>represented in leadership (Corporate, <strong style="color:var(--purple)">−12.86</strong>), they are correspondingly <em>over</em>represented in non-leadership (<strong style="color:var(--teal)">+5.84</strong>) — the same people sorted into different rungs. Academia is the inverse trap: near-zero deviation for Black women masks a massive surplus of <em>other</em> groups in leadership (<strong style="color:var(--teal)">+45.84</strong>).</p>
+</div>
+
+<!-- ====== LOGISTIC REGRESSION ====== -->
+<div class="scene" id="s-logistic">
+  <div class="scene-tag">06 · Logistic Regression</div>
+  <h2>A logistic model quantifies the odds: being a Black woman <span class="hl-r">reduces the odds of leadership</span></h2>
+  <p class="lead">Replacing the Linear Probability Model with a logistic regression (which correctly models binary outcomes), we estimate the odds ratio of holding a leadership position, controlling for industry.</p>
+  <div class="chart-with-note align-top">
+    <div>
+      <table class="reg-table" id="regTable">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th class="num">Coefficient (β)</th>
+            <th class="num">Odds Ratio</th>
+            <th class="viz">OR visualization &nbsp; <span style="color:var(--dim);font-weight:400;text-transform:none;letter-spacing:0">(centered on 1.0)</span></th>
+            <th class="num">Std. Error</th>
+            <th class="num">Sig.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-or="0.490"><td>(Intercept)</td><td class="num">-0.713</td><td class="num">0.490</td><td><div class="or-viz"><div class="or-dot"></div></div></td><td class="num">0.008</td><td class="num">***</td></tr>
+          <tr class="highlight-row" data-or="0.707"><td style="color:var(--red)">Group: Black Women</td><td class="num" style="color:var(--red)">-0.346</td><td class="num" style="color:var(--red)">0.707</td><td><div class="or-viz"><div class="or-dot"></div></div></td><td class="num">0.014</td><td class="num" style="color:var(--red)">***</td></tr>
+          <tr data-or="0.640"><td>Industry: Corporate</td><td class="num">-0.447</td><td class="num">0.640</td><td><div class="or-viz"><div class="or-dot"></div></div></td><td class="num">0.009</td><td class="num">***</td></tr>
+          <tr data-or="1.474"><td>Industry: Healthcare</td><td class="num">+0.388</td><td class="num">1.474</td><td><div class="or-viz"><div class="or-dot"></div></div></td><td class="num">0.010</td><td class="num">***</td></tr>
+          <tr data-or="1.686"><td>Industry: Public Sector</td><td class="num">+0.522</td><td class="num">1.686</td><td><div class="or-viz"><div class="or-dot"></div></div></td><td class="num">0.011</td><td class="num">***</td></tr>
+        </tbody>
+      </table>
+      <div class="spacer"></div>
+      <div class="big-stat hl-r" id="bigOR" style="opacity:0">0.707×</div>
+      <div class="big-label">Odds ratio for Black women holding a leadership position<br>controlling for industry · p &lt; 0.001</div>
+      <p class="lead" style="margin-top:1.5rem">An odds ratio of <strong style="color:var(--red)">0.707</strong> means Black women have approximately <strong style="color:var(--red)">29.3% lower odds</strong> of holding a leadership position compared to all other groups, even after controlling for industry sector. The effect is highly significant (p &lt; 0.001).</p>
+      <div class="tag">Logistic Regression · glm(leadership ~ group + industry, family=binomial) · N = 372,226</div>
+    </div>
+    <div class="chart-note">
+      <div class="chart-note-label">About this method</div>
+      <div class="chart-note-body">
+        <p><strong>What it is.</strong> A <strong>logistic regression</strong> models the log-odds of a binary outcome as a linear combination of predictors. Coefficients are exponentiated into <em>odds ratios</em>: below 1 = reduced odds, above 1 = increased odds.</p>
+        <p><strong>Why use it.</strong> The earlier analyses establish that a gap <em>exists</em>; this isolates how much is attributable to being a Black woman specifically, separate from sector composition.</p>
+        <p><strong>Significance.</strong> The 0.707 OR (p &lt; 0.001) is a within-industry effect: comparing Black women to peers in the <em>same</em> sector, the leadership shortfall remains.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== CONCLUSION ====== -->
+<div class="scene" id="s-close">
+  <div class="scene-tag">07 · Conclusion</div>
+  <h1>The degrees are earned. <em style="color:var(--accent)">The doors remain closed.</em></h1>
+  <div class="divider"></div>
+  <p class="lead">The results across all analyses are consistent and statistically robust. The evidence below shows which hypothesis the data supports:</p>
+  <div class="hypo-row" id="conclusionHypo">
+    <div class="hypo-card h0" id="conc-h0">
+      <div class="hypo-label">Null Hypothesis (H₀)</div>
+      <p class="hypo-text">There is no statistically significant gap between the proportion of Black women earning graduate degrees and their representation in higher leadership positions.</p>
+      <div class="hypo-verdict reject" id="verdict-reject" style="display:none">✗ Rejected</div>
+    </div>
+    <div class="hypo-card h1" id="conc-h1">
+      <div class="hypo-label">Alternate Hypothesis (H₁)</div>
+      <p class="hypo-text">There <em>is</em> a statistically significant gap between the proportion of Black women earning graduate degrees and their lower rates of representation in higher leadership positions.</p>
+      <div class="hypo-verdict accept" id="verdict-accept" style="display:none">✓ Accepted</div>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.5rem">These findings highlight persistent structural and systemic barriers that hinder the career progression of Black women despite their educational success. Industry-specific factors — workplace culture, implicit bias, exclusion from informal networks, and differential access to sponsorship — continue to affect leadership representation in ways that credentials alone cannot overcome.</p>
+  <p class="lead">However, the study is not without limitations. The 2023 ACS IPUMS data may not fully capture career progression nuances such as work experience or professional networks. The logistic regression also assumes a functional form that may not capture the full complexity of this relationship.</p>
+  <p class="lead" style="color:var(--text)">Despite these limitations, the findings are robust and persuasive. Chi-square test statistics (χ² = 4,217.3, p &lt; 2.2e-16), standardized residuals exceeding |12| in Corporate, and an odds ratio of 0.707 (p &lt; 0.001) all converge on the same conclusion. Addressing these barriers would create more equitable opportunities for Black women and more diverse leadership across all sectors.</p>
+  <div class="divider"></div>
+  <div class="tag">2023 ACS IPUMS Data · Chi-Square Tests · Logistic Regression · Amen Hailu · Pratt Institute 2026</div>
+  <p class="footnote">References: AAUW (2018), Crenshaw (1989), Turner et al. (2008)</p>
+</div>
+
+<div style="height:6vh"></div>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div class="footer-inner">
+
+    <p class="footer-about">
+      This scrollytelling analysis was produced as part of graduate research at Pratt Institute (2026). It examines leadership disparities for Black women with advanced degrees across four industry sectors using 2023 ACS IPUMS microdata.
+    </p>
+
+    <div class="footer-about-divider"></div>
+
+    <div class="footer-meta">
+      <div class="footer-meta-item"><strong>Author</strong>Amen Hailu</div>
+      <div class="footer-meta-item"><strong>Institution</strong>Pratt Institute · School of Information</div>
+      <div class="footer-meta-item"><strong>Year</strong>2026</div>
+      <div class="footer-meta-item"><strong>Data Source</strong>2023 ACS IPUMS · U.S. Census Bureau</div>
+      <div class="footer-meta-item"><strong>Sample Size</strong>N = 372,226 advanced-degree holders</div>
+    </div>
+
+    <div class="footer-resources-title">Data &amp; Resources</div>
+    <p class="footer-resources-intro">All materials for this study — including the dataset, occupation code breakdown, and previous study variations — are publicly accessible in a single GitHub repository.</p>
+
+    <div class="footer-resources">
+      <div class="footer-resource-card">
+        <div class="fr-label">Dataset</div>
+        <div class="fr-body">
+          <strong>Dataset Access</strong>
+          <p>Processed ACS IPUMS extract (.csv) with derived variables — leadership indicator, sector classification, race/gender flags. Raw data obtained directly from IPUMS.</p>
+        </div>
+      </div>
+      <div class="footer-resource-card">
+        <div class="fr-label">Occupations</div>
+        <div class="fr-body">
+          <strong>Occupation Code Breakdown</strong>
+          <p>Full OCC2010-to-sector and OCC2010-to-leadership mapping tables, including coding decisions for ambiguous codes and rationale for exclusions.</p>
+        </div>
+      </div>
+      <div class="footer-resource-card">
+        <div class="fr-label">Versions</div>
+        <div class="fr-body">
+          <strong>Previous Study Variations</strong>
+          <p>Earlier iterations using different model specifications, ACS years, and geographic subsets — including v1 (Linear Probability Model) and v2 (sector-only analysis).</p>
+        </div>
+      </div>
+      <div class="footer-resource-card">
+        <div class="fr-label">Code</div>
+        <div class="fr-body">
+          <strong>R Analysis Code</strong>
+          <p>Full reproducible R script (tidyverse, ggplot2, corrplot) for data cleaning, chi-square tests, and logistic regression.</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="https://github.com/amma-ctrl/degrees-disparities" target="_blank" rel="noopener" class="footer-repo-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.07 0 0 .97-.31 3.18 1.18a11 11 0 015.79 0c2.21-1.5 3.18-1.18 3.18-1.18.63 1.6.23 2.78.11 3.07.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.05.78 2.12v3.14c0 .31.21.67.8.56C20.21 21.38 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/>
+      </svg>
+      View the full repository on GitHub
+      <span style="opacity:.8">→</span>
+    </a>
+
+    <div class="footer-bottom">
+      <span>Degrees &amp; Disparities · Amen Hailu · Pratt Institute 2026</span>
+      <span>References: AAUW (2018), Crenshaw (1989), Turner et al. (2008)</span>
+    </div>
+  </div>
+</footer>
+
+  <!-- Scripts — load in dependency order:
+       data → charts → methodology → main (orchestrator) -->
+  <script src="js/data.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/methodology.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
