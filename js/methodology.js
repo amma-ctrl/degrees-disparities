@@ -30,10 +30,7 @@
   let pausedByClick = false;
   let inView = false;
 
-  /**
-   * Apply the active-step class to the indicated step and light up
-   * arrows up to but not including that step. Also updates the details panel.
-   */
+
   function highlightStep(idx) {
     document.querySelectorAll('.method-step').forEach((s, i) => {
       s.classList.toggle('active-step', i === idx);
@@ -110,7 +107,6 @@
     bindClickHandlers();
   }
 
-  // Public API
   window.Methodology = {
     enter: enter,
     exit: exit
