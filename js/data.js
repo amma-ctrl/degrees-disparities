@@ -47,29 +47,29 @@
     'corp-gender': {
       yMax: 50,
       groups: [
-        { label: 'Black Men',   color: 'var(--g-male)',   degree: 38.0, leadership: 36.1 },
-        { label: 'Black Women', color: 'var(--g-female)', degree: 42.0, leadership: 30.8, isBW: true }
+        { label: 'Black Men',   color: 'var(--g-male)',   degree: 1.0, leadership: 0.4 },
+        { label: 'Black Women', color: 'var(--g-female)', degree: 1.3, leadership: 0.3, isBW: true }
       ]
     },
     'health-gender': {
       yMax: 60,
       groups: [
-        { label: 'Black Men',   color: 'var(--g-male)',   degree: 44.0, leadership: 39.1 },
-        { label: 'Black Women', color: 'var(--g-female)', degree: 51.0, leadership: 25.5, isBW: true }
+        { label: 'Black Men',   color: 'var(--g-male)',   degree: 0.1, leadership: 0.2 },
+        { label: 'Black Women', color: 'var(--g-female)', degree: 0.5, leadership: 0.3, isBW: true }
       ]
     },
     'public-gender': {
       yMax: 40,
       groups: [
-        { label: 'Black Men',   color: 'var(--g-male)',   degree: 28.0, leadership: 26.2 },
-        { label: 'Black Women', color: 'var(--g-female)', degree: 32.0, leadership: 20.3, isBW: true }
+        { label: 'Black Men',   color: 'var(--g-male)',   degree: 0.4, leadership: 0.5 },
+        { label: 'Black Women', color: 'var(--g-female)', degree: 0.7, leadership: 0.8, isBW: true }
       ]
     },
     'academia-gender': {
       yMax: 35,
       groups: [
-        { label: 'Black Men',   color: 'var(--g-male)',   degree: 26.0, leadership: 24.0 },
-        { label: 'Black Women', color: 'var(--g-female)', degree: 28.5, leadership: 21.6, isBW: true }
+        { label: 'Black Men',   color: 'var(--g-male)',   degree: 0.4, leadership: 0.1 },
+        { label: 'Black Women', color: 'var(--g-female)', degree: 1.1, leadership: 0.2, isBW: true }
       ]
     },
 
